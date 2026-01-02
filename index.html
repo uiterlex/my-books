@@ -90,56 +90,77 @@
             border-radius: 4px;
             font-size: 0.85rem;
         }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        .error {
+            text-align: center;
+            color: #dc2626;
+            padding: 2rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>📚 My Book Collection</h1>
-            <p class="stats">4 books read · 1,454 pages</p>
+            <p class="stats" id="stats">Loading...</p>
         </header>
 
-        <div class="book-list">
-            <article class="book-card">
-                <h2 class="book-title">De puzzelaar</h2>
-                <p class="book-author">Marit Vanström</p>
-                <div class="book-meta">
-                    <span class="stars">★★★★★</span>
-                    <span>📄 315 pages</span>
-                    <span class="series">Lianne Bloemen serie</span>
-                </div>
-            </article>
-
-            <article class="book-card">
-                <h2 class="book-title">De jager en de prooi</h2>
-                <p class="book-author">Marit Vanström</p>
-                <div class="book-meta">
-                    <span class="stars">★★★★☆</span>
-                    <span>📄 275 pages</span>
-                    <span class="series">Lianne Bloemen serie</span>
-                </div>
-            </article>
-
-            <article class="book-card">
-                <h2 class="book-title">De 20</h2>
-                <p class="book-author">Sam Holland</p>
-                <div class="book-meta">
-                    <span class="stars">★★★★★</span>
-                    <span>📄 384 pages</span>
-                    <span class="series">Adam Bishop serie</span>
-                </div>
-            </article>
-
-            <article class="book-card">
-                <h2 class="book-title">Het Bernini mysterie</h2>
-                <p class="book-author">Dan Brown</p>
-                <div class="book-meta">
-                    <span class="stars">★★★★☆</span>
-                    <span>📄 480 pages</span>
-                    <span class="series">Robert Langdon serie</span>
-                </div>
-            </article>
+        <div class="book-list" id="book-list">
+            <p class="loading">Loading books...</p>
         </div>
     </div>
+
+    <script>
+        function renderStars(rating) {
+            return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        }
+
+        function renderBook(book) {
+            return `
+                <article class="book-card">
+                    <h2 class="book-title">${book.title}</h2>
+                    <p class="book-author">${book.author}</p>
+                    <div class="book-meta">
+                        <span class="stars">${renderStars(book.rating)}</span>
+                        <span>📄 ${book.pages} pages</span>
+                        ${book.series ? `<span class="series">${book.series}</span>` : ''}
+                    </div>
+                </article>
+            `;
+        }
+
+        function updateStats(books) {
+            const totalBooks = books.length;
+            const totalPages = books.reduce((sum, book) => sum + book.pages, 0);
+            document.getElementById('stats').textContent = 
+                `${totalBooks} books read · ${totalPages.toLocaleString()} pages`;
+        }
+
+        async function loadBooks() {
+            const bookList = document.getElementById('book-list');
+            
+            try {
+                const response = await fetch('books.json');
+                if (!response.ok) throw new Error('Failed to load books');
+                
+                const books = await response.json();
+                
+                updateStats(books);
+                bookList.innerHTML = books.map(renderBook).join('');
+                
+            } catch (error) {
+                console.error('Error loading books:', error);
+                bookList.innerHTML = '<p class="error">Failed to load books. Please try again later.</p>';
+            }
+        }
+
+        loadBooks();
+    </script>
 </body>
 </html>
