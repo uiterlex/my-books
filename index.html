@@ -276,20 +276,18 @@
         }
 
         .book-cover {
-            width: 100px;
-            height: 150px;
+            width: 125px;
+            height: 188px;
             object-fit: contain;
             flex-shrink: 0;
             background: white;
-            padding: 5px;
-            border: 1px solid #eee;
+            padding: 10px;
         }
 
         .book-cover-placeholder {
-            width: 100px;
-            height: 150px;
+            width: 125px;
+            height: 188px;
             background: white;
-            border: 1px solid #eee;
             flex-shrink: 0;
         }
 
@@ -306,6 +304,13 @@
             justify-content: space-between;
             align-items: flex-start;
             gap: 1rem;
+        }
+
+        .book-header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
         }
 
         .book-title {
@@ -373,7 +378,6 @@
 
         .series {
             color: #666;
-            font-style: italic;
         }
 
         .category {
@@ -400,7 +404,7 @@
 
         .book-dates {
             font-size: 0.85rem;
-            color: #888;
+            color: #1a1a1a;
             margin-top: 0.25rem;
         }
 
@@ -627,7 +631,7 @@
                 flex-direction: column;
             }
 
-            .book-actions {
+            .book-header-right {
                 align-self: flex-start;
             }
         }
@@ -1089,18 +1093,20 @@
                                 <h2 class="book-title">${escapeHtml(book.title)}</h2>
                                 <p class="book-author">${escapeHtml(book.author)}</p>
                             </div>
-                            ${isOwner ? `
-                                <div class="book-actions">
-                                    <button class="edit-btn" onclick="window.editBook('${book.id}')">Edit</button>
-                                    <button class="delete-btn" onclick="window.confirmDelete('${book.id}')">Delete</button>
-                                </div>
-                            ` : ''}
+                            <div class="book-header-right">
+                                ${isOwner ? `
+                                    <div class="book-actions">
+                                        <button class="edit-btn" onclick="window.editBook('${book.id}')">Edit</button>
+                                        <button class="delete-btn" onclick="window.confirmDelete('${book.id}')">Delete</button>
+                                    </div>
+                                ` : ''}
+                                ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
+                            </div>
                         </div>
                         <div class="book-meta">
                             <span class="stars">${renderStars(book.rating)}</span>
                             ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
                             ${book.series ? `<span class="series">Series: ${escapeHtml(book.series)}</span>` : ''}
-                            ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
                         </div>
                         ${book.preview ? `
                             <div class="preview-text" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`').replace(/\\/g, '\\\\')}\`)">
@@ -1112,7 +1118,7 @@
                         ${book.dateRead || book.firstEdition ? `
                             <p class="book-dates">
                                 ${book.dateRead ? `Read: ${formatDate(book.dateRead)}` : ''}
-                                ${book.dateRead && book.firstEdition ? ' · ' : ''}
+                                ${book.dateRead && book.firstEdition ? '&nbsp;&nbsp;&nbsp;&nbsp;' : ''}
                                 ${book.firstEdition ? `First edition: ${book.firstEdition}` : ''}
                             </p>
                         ` : ''}
