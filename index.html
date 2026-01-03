@@ -273,19 +273,24 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             display: flex;
             overflow: hidden;
-            position: relative;
         }
 
         .book-cover {
             width: 100px;
-            min-height: 150px;
-            object-fit: cover;
+            height: 150px;
+            object-fit: contain;
             flex-shrink: 0;
+            background: white;
+            padding: 5px;
+            border: 1px solid #eee;
         }
 
         .book-cover-placeholder {
-            background: #f8f8f8;
+            width: 100px;
+            height: 150px;
+            background: white;
             border: 1px solid #eee;
+            flex-shrink: 0;
         }
 
         .book-info {
@@ -391,12 +396,6 @@
         .category-other {
             background: #f3f4f6;
             color: #4b5563;
-        }
-
-        .book-category-corner {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
         }
 
         .book-dates {
@@ -618,7 +617,8 @@
                 flex-direction: column;
             }
 
-            .book-cover {
+            .book-cover,
+            .book-cover-placeholder {
                 width: 100%;
                 height: 200px;
             }
@@ -757,6 +757,11 @@
             <form id="bookForm">
                 <input type="hidden" id="bookId">
                 <div class="form-group">
+                    <label for="bookCover">Cover Image</label>
+                    <input type="file" id="bookCover" accept="image/*">
+                    <img id="coverPreview" class="cover-preview" style="display:none;">
+                </div>
+                <div class="form-group">
                     <label for="bookTitle">Title *</label>
                     <input type="text" id="bookTitle" required>
                 </div>
@@ -806,11 +811,6 @@
                 <div class="form-group">
                     <label for="bookPlot">Plot</label>
                     <textarea id="bookPlot" placeholder="Book summary..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="bookCover">Cover Image</label>
-                    <input type="file" id="bookCover" accept="image/*">
-                    <img id="coverPreview" class="cover-preview" style="display:none;">
                 </div>
                 <div class="form-actions">
                     <button type="button" class="cancel-btn" onclick="closeBookModal()">Cancel</button>
@@ -1083,7 +1083,6 @@
                         ? `<img src="${book.coverUrl}" alt="${escapeHtml(book.title)}" class="book-cover">`
                         : `<div class="book-cover book-cover-placeholder"></div>`
                     }
-                    ${book.category ? `<span class="book-category-corner category category-${book.category}">${book.category}</span>` : ''}
                     <div class="book-info">
                         <div class="book-header">
                             <div>
@@ -1101,6 +1100,7 @@
                             <span class="stars">${renderStars(book.rating)}</span>
                             ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
                             ${book.series ? `<span class="series">Series: ${escapeHtml(book.series)}</span>` : ''}
+                            ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
                         </div>
                         ${book.preview ? `
                             <div class="preview-text" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`').replace(/\\/g, '\\\\')}\`)">
