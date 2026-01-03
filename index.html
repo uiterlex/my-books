@@ -26,9 +26,14 @@
 
         header {
             margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        h1 {
+        .header-left h1 {
             font-size: 2rem;
             font-weight: 600;
             color: #1a1a1a;
@@ -37,6 +42,58 @@
         .stats {
             color: #666;
             margin-top: 0.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .user-info {
+            font-size: 0.85rem;
+            color: #666;
         }
 
         .book-list {
@@ -50,6 +107,7 @@
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .book-header {
@@ -64,6 +122,17 @@
             font-size: 1.25rem;
             font-weight: 600;
             color: #1a1a1a;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .book-card:hover .book-actions {
+            opacity: 1;
         }
 
         .category {
@@ -120,7 +189,6 @@
             flex-wrap: wrap;
             font-size: 0.85rem;
             color: #666;
-            margin-bottom: 0.75rem;
             padding-top: 0.5rem;
             border-top: 1px solid #eee;
         }
@@ -241,18 +309,83 @@
             line-height: 1.7;
         }
 
+        /* Form modal styles */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .confirm-message {
+            margin: 1rem 0;
+        }
+
         .loading {
             text-align: center;
             padding: 2rem;
             color: #666;
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #dc2626;
+            background: #fef2f2;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📚 My Book Collection</h1>
-            <p class="stats" id="stats">Loading...</p>
+            <div class="header-left">
+                <h1>📚 My Book Collection</h1>
+                <p class="stats" id="stats">Loading...</p>
+            </div>
+            <div class="header-right">
+                <span class="user-info" id="user-info"></span>
+                <button class="btn btn-primary hidden" id="add-btn" onclick="openAddModal()">+ Add Book</button>
+                <button class="btn btn-secondary hidden" id="sign-in-btn" onclick="signIn()">Sign In</button>
+                <button class="btn btn-secondary hidden" id="sign-out-btn" onclick="signOut()">Sign Out</button>
+            </div>
         </header>
 
         <div class="book-list" id="book-list">
@@ -260,75 +393,194 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <!-- Text Preview Modal -->
+    <div class="modal-overlay" id="text-modal" onclick="closeTextModal(event)">
         <div class="modal" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <span class="modal-title" id="modal-title">Title</span>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <span class="modal-title" id="text-modal-title">Title</span>
+                <button class="modal-close" onclick="closeTextModal()">&times;</button>
             </div>
-            <div class="modal-body" id="modal-body">
+            <div class="modal-body" id="text-modal-body">
                 Content
             </div>
         </div>
     </div>
 
-    <script>
-        // Book data - ready for Firebase integration
-        const books = [
-            {
-                id: 1,
-                title: "De puzzelaar",
-                author: "Marit Vanström",
-                pages: 315,
-                rating: 5,
-                series: "Lianne Bloemen serie",
-                category: "thriller",
-                dateRead: "2024-12",
-                firstEdition: "2023",
-                preview: "Een gruwelijke ontdekking in een verlaten pand zet rechercheur Lianne Bloemen op het spoor van een sadistische moordenaar die puzzels achterlaat bij zijn slachtoffers.",
-                plot: "Rechercheur Lianne Bloemen wordt geconfronteerd met een serie bizarre moorden waarbij de dader steeds een puzzel achterlaat. Terwijl ze de aanwijzingen probeert te ontcijferen, ontdekt ze een patroon dat haar dichter bij de moordenaar brengt - maar ook dichter bij haar eigen verleden."
-            },
-            {
-                id: 2,
-                title: "De jager en de prooi",
-                author: "Marit Vanström",
-                pages: 275,
-                rating: 4,
-                series: "Lianne Bloemen serie",
-                category: "thriller",
-                dateRead: "2024-11",
-                firstEdition: "2022",
-                preview: "Een klopjacht door de bossen van de Veluwe als een gevaarlijke crimineel ontsnapt en zweert wraak te nemen op degenen die hem hebben opgesloten.",
-                plot: "Na een gewaagde ontsnapping uit de gevangenis begint een veroordeelde moordenaar aan een wraaktocht. Lianne Bloemen moet hem zien te stoppen voordat hij zijn doelwitten bereikt, maar al snel blijkt dat de rollen kunnen omdraaien."
-            },
-            {
-                id: 3,
-                title: "De 20",
-                author: "Sam Holland",
-                pages: 384,
-                rating: 5,
-                series: "Adam Bishop serie",
-                category: "detective",
-                dateRead: "2024-10",
-                firstEdition: "2021",
-                preview: "Twintig mensen worden vermist in één nacht. Rechercheur Adam Bishop staat voor de grootste zaak uit zijn carrière.",
-                plot: "Op één nacht verdwijnen twintig mensen spoorloos uit een klein dorp. Rechercheur Adam Bishop ontdekt dat de verdwijningen verband houden met een geheim dat al decennia verborgen werd gehouden door de dorpsbewoners."
-            },
-            {
-                id: 4,
-                title: "Het Bernini mysterie",
-                author: "Dan Brown",
-                pages: 480,
-                rating: 4,
-                series: "Robert Langdon serie",
-                category: "thriller",
-                dateRead: "2024-09",
-                firstEdition: "2000",
-                preview: "Een oude vijand van het Vaticaan duikt weer op en dreigt vier kardinalen te vermoorden tijdens de pauskeuze.",
-                plot: "Professor Robert Langdon wordt naar Rome geroepen wanneer de Illuminati dreigen vier kardinalen te vermoorden en het Vaticaan te vernietigen met een gestolen antimaterie-bom. Hij moet de aanwijzingen van de oude geheime broederschap volgen door de kunstwerken van Bernini."
+    <!-- Add/Edit Book Modal -->
+    <div class="modal-overlay" id="form-modal" onclick="closeFormModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title" id="form-modal-title">Add Book</span>
+                <button class="modal-close" onclick="closeFormModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="book-form" onsubmit="saveBook(event)">
+                    <input type="hidden" id="book-id">
+                    
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="author">Author *</label>
+                        <input type="text" id="author" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pages">Pages</label>
+                            <input type="number" id="pages" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select id="rating">
+                                <option value="5">★★★★★</option>
+                                <option value="4">★★★★☆</option>
+                                <option value="3">★★★☆☆</option>
+                                <option value="2">★★☆☆☆</option>
+                                <option value="1">★☆☆☆☆</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="series">Series</label>
+                        <input type="text" id="series">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category">
+                                <option value="">-- Select --</option>
+                                <option value="thriller">Thriller</option>
+                                <option value="detective">Detective</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstEdition">First Edition (year)</label>
+                            <input type="text" id="firstEdition" maxlength="4" pattern="[0-9]{4}" placeholder="2023">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateRead">Date Read</label>
+                        <input type="month" id="dateRead">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preview">Preview</label>
+                        <textarea id="preview" placeholder="Short teaser text..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="plot">Plot</label>
+                        <textarea id="plot" placeholder="Plot summary..."></textarea>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeFormModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title">Delete Book</span>
+                <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-message" id="confirm-message">Are you sure you want to delete this book?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                    <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7oDuArIH_LMQbSyKE8k1g0m3n_fa1NH8",
+            authDomain: "my-books-4ef15.firebaseapp.com",
+            projectId: "my-books-4ef15",
+            storageBucket: "my-books-4ef15.firebasestorage.app",
+            messagingSenderId: "920189621468",
+            appId: "1:920189621468:web:101a4c439e8e3cbd18d019"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const OWNER_EMAIL = "uiterlex@gmail.com";
+
+        let books = [];
+        let bookToDelete = null;
+        let currentUser = null;
+        let isOwner = false;
+
+        // Auth functions
+        window.signIn = async function() {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error('Sign in error:', error);
+                alert('Sign in failed. Please try again.');
             }
-        ];
+        };
+
+        window.signOut = async function() {
+            try {
+                await firebaseSignOut(auth);
+            } catch (error) {
+                console.error('Sign out error:', error);
+            }
+        };
+
+        function updateAuthUI() {
+            const signInBtn = document.getElementById('sign-in-btn');
+            const signOutBtn = document.getElementById('sign-out-btn');
+            const addBtn = document.getElementById('add-btn');
+            const userInfo = document.getElementById('user-info');
+
+            if (currentUser) {
+                signInBtn.classList.add('hidden');
+                signOutBtn.classList.remove('hidden');
+                userInfo.textContent = currentUser.email;
+                
+                if (isOwner) {
+                    addBtn.classList.remove('hidden');
+                }
+            } else {
+                signInBtn.classList.remove('hidden');
+                signOutBtn.classList.add('hidden');
+                addBtn.classList.add('hidden');
+                userInfo.textContent = '';
+            }
+            
+            // Re-render to show/hide edit buttons
+            renderBooks(books);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            isOwner = user && user.email === OWNER_EMAIL;
+            updateAuthUI();
+        });
 
         // Render functions
         function renderStars(rating) {
@@ -336,40 +588,56 @@
         }
 
         function formatDate(dateStr) {
+            if (!dateStr) return '';
             const [year, month] = dateStr.split('-');
             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             return `${monthNames[parseInt(month) - 1]} ${year}`;
         }
 
         function truncateText(text, maxLength = 50) {
+            if (!text) return '';
             if (text.length <= maxLength) return text;
             return text.substring(0, maxLength).trim() + '...';
         }
 
         function escapeHtml(text) {
+            if (!text) return '';
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
         function renderBook(book) {
+            const hasTextPreview = book.preview || book.plot;
+            const hasDetails = book.dateRead || book.firstEdition;
+            
             return `
                 <article class="book-card" data-book-id="${book.id}">
                     <div class="book-header">
                         <h2 class="book-title">${escapeHtml(book.title)}</h2>
-                        <span class="category ${book.category}">${escapeHtml(book.category)}</span>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            ${book.category ? `<span class="category ${book.category}">${escapeHtml(book.category)}</span>` : ''}
+                            ${isOwner ? `
+                                <div class="book-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="openEditModal('${book.id}')">✏️</button>
+                                    <button class="btn btn-danger btn-small" onclick="openDeleteModal('${book.id}', '${escapeHtml(book.title)}')">🗑️</button>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                     <p class="book-author">${escapeHtml(book.author)}</p>
                     <div class="book-meta">
-                        <span class="stars">${renderStars(book.rating)}</span>
-                        <span>📄 ${book.pages} pages</span>
+                        <span class="stars">${renderStars(book.rating || 0)}</span>
+                        <span>📄 ${book.pages || 0} pages</span>
                         ${book.series ? `<span class="series">${escapeHtml(book.series)}</span>` : ''}
                     </div>
-                    <div class="book-details">
-                        <span>📅 Read: ${formatDate(book.dateRead)}</span>
-                        <span>📖 First edition: ${escapeHtml(book.firstEdition)}</span>
-                    </div>
-                    ${book.preview || book.plot ? `
+                    ${hasDetails ? `
+                        <div class="book-details">
+                            ${book.dateRead ? `<span>📅 Read: ${formatDate(book.dateRead)}</span>` : ''}
+                            ${book.firstEdition ? `<span>📖 First edition: ${escapeHtml(book.firstEdition)}</span>` : ''}
+                        </div>
+                    ` : ''}
+                    ${hasTextPreview ? `
                         <div class="text-preview">
                             ${book.preview ? `
                                 <div class="text-preview-row">
@@ -397,57 +665,162 @@
 
         function renderStats(books) {
             const totalBooks = books.length;
-            const totalPages = books.reduce((sum, book) => sum + book.pages, 0);
+            const totalPages = books.reduce((sum, book) => sum + (book.pages || 0), 0);
             return `${totalBooks} books read · ${totalPages.toLocaleString()} pages`;
         }
 
-        function renderBooks(books) {
-            const bookList = document.getElementById('book-list');
+        function renderBooks(bookList) {
+            const bookListEl = document.getElementById('book-list');
             const stats = document.getElementById('stats');
             
-            if (books.length === 0) {
-                bookList.innerHTML = '<div class="loading">No books in collection yet.</div>';
+            if (bookList.length === 0) {
+                bookListEl.innerHTML = '<div class="loading">No books in collection yet.</div>';
                 stats.textContent = '0 books read';
                 return;
             }
 
             // Sort by date read (newest first)
-            const sortedBooks = [...books].sort((a, b) => b.dateRead.localeCompare(a.dateRead));
+            const sortedBooks = [...bookList].sort((a, b) => (b.dateRead || '').localeCompare(a.dateRead || ''));
             
-            bookList.innerHTML = sortedBooks.map(renderBook).join('');
-            stats.textContent = renderStats(books);
+            bookListEl.innerHTML = sortedBooks.map(renderBook).join('');
+            stats.textContent = renderStats(bookList);
 
             // Add event listeners to expand buttons
             document.querySelectorAll('.expand-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    showModal(btn.dataset.title, btn.dataset.content);
+                    showTextModal(btn.dataset.title, btn.dataset.content);
                 });
             });
         }
 
-        // Modal functions
-        function showModal(title, content) {
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-body').textContent = content;
-            document.getElementById('modal').classList.add('active');
+        // Text modal functions
+        function showTextModal(title, content) {
+            document.getElementById('text-modal-title').textContent = title;
+            document.getElementById('text-modal-body').textContent = content;
+            document.getElementById('text-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal(event) {
-            if (!event || event.target === document.getElementById('modal')) {
-                document.getElementById('modal').classList.remove('active');
+        window.closeTextModal = function(event) {
+            if (!event || event.target === document.getElementById('text-modal')) {
+                document.getElementById('text-modal').classList.remove('active');
                 document.body.style.overflow = '';
             }
-        }
+        };
 
-        // Close modal on Escape key
+        // Form modal functions
+        window.openAddModal = function() {
+            document.getElementById('form-modal-title').textContent = 'Add Book';
+            document.getElementById('book-form').reset();
+            document.getElementById('book-id').value = '';
+            document.getElementById('form-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.openEditModal = function(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (!book) return;
+
+            document.getElementById('form-modal-title').textContent = 'Edit Book';
+            document.getElementById('book-id').value = bookId;
+            document.getElementById('title').value = book.title || '';
+            document.getElementById('author').value = book.author || '';
+            document.getElementById('pages').value = book.pages || '';
+            document.getElementById('rating').value = book.rating || 5;
+            document.getElementById('series').value = book.series || '';
+            document.getElementById('category').value = book.category || '';
+            document.getElementById('firstEdition').value = book.firstEdition || '';
+            document.getElementById('dateRead').value = book.dateRead || '';
+            document.getElementById('preview').value = book.preview || '';
+            document.getElementById('plot').value = book.plot || '';
+
+            document.getElementById('form-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeFormModal = function(event) {
+            if (!event || event.target === document.getElementById('form-modal')) {
+                document.getElementById('form-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        };
+
+        window.saveBook = async function(event) {
+            event.preventDefault();
+            
+            const bookId = document.getElementById('book-id').value;
+            const bookData = {
+                title: document.getElementById('title').value,
+                author: document.getElementById('author').value,
+                pages: parseInt(document.getElementById('pages').value) || 0,
+                rating: parseInt(document.getElementById('rating').value),
+                series: document.getElementById('series').value,
+                category: document.getElementById('category').value,
+                firstEdition: document.getElementById('firstEdition').value,
+                dateRead: document.getElementById('dateRead').value,
+                preview: document.getElementById('preview').value,
+                plot: document.getElementById('plot').value
+            };
+
+            try {
+                if (bookId) {
+                    await updateDoc(doc(db, 'books', bookId), bookData);
+                } else {
+                    await addDoc(collection(db, 'books'), bookData);
+                }
+                closeFormModal();
+            } catch (error) {
+                console.error('Error saving book:', error);
+                alert('Failed to save book. Please try again.');
+            }
+        };
+
+        // Delete modal functions
+        window.openDeleteModal = function(bookId, title) {
+            bookToDelete = bookId;
+            document.getElementById('confirm-message').textContent = `Are you sure you want to delete "${title}"?`;
+            document.getElementById('confirm-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeConfirmModal = function() {
+            document.getElementById('confirm-modal').classList.remove('active');
+            document.body.style.overflow = '';
+            bookToDelete = null;
+        };
+
+        window.confirmDelete = async function() {
+            if (!bookToDelete) return;
+
+            try {
+                await deleteDoc(doc(db, 'books', bookToDelete));
+                closeConfirmModal();
+            } catch (error) {
+                console.error('Error deleting book:', error);
+                alert('Failed to delete book. Please try again.');
+            }
+        };
+
+        // Close modals on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeTextModal();
+                closeFormModal();
+                closeConfirmModal();
+            }
         });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        // Listen to Firestore changes
+        const booksQuery = query(collection(db, 'books'), orderBy('dateRead', 'desc'));
+        onSnapshot(booksQuery, (snapshot) => {
+            books = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
             renderBooks(books);
+        }, (error) => {
+            console.error('Error loading books:', error);
+            document.getElementById('book-list').innerHTML = '<div class="error">Failed to load books. Please refresh the page.</div>';
         });
     </script>
 </body>
