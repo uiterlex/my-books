@@ -20,20 +20,20 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
+            margin-bottom: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
             gap: 1rem;
         }
 
-        h1 {
+        .header-left h1 {
             font-size: 2rem;
             font-weight: 600;
             color: #1a1a1a;
@@ -44,43 +44,246 @@
             margin-top: 0.5rem;
         }
 
-        .auth-section {
+        .header-right {
             display: flex;
-            gap: 0.5rem;
             align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
-        .auth-btn, .add-btn {
-            padding: 0.5rem 1rem;
+        .user-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.6rem 1.2rem;
             border: none;
             border-radius: 6px;
+            font-size: 0.95rem;
             cursor: pointer;
-            font-size: 0.9rem;
             transition: background 0.2s;
         }
 
-        .auth-btn {
-            background: #e5e5e5;
-            color: #333;
-        }
-
-        .auth-btn:hover {
-            background: #d5d5d5;
-        }
-
-        .add-btn {
-            background: #2563eb;
+        .btn-primary {
+            background: #3730a3;
             color: white;
         }
 
-        .add-btn:hover {
-            background: #1d4ed8;
+        .btn-primary:hover {
+            background: #2e2892;
         }
 
-        .hidden {
-            display: none !important;
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
         }
 
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #fecaca;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        /* Filter & Sort Controls */
+        .controls {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .toggle-btn {
+            background: #e5e7eb;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .toggle-btn:hover {
+            background: #d1d5db;
+        }
+
+        .controls-content {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .controls-content.show {
+            display: block;
+        }
+
+        .control-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-section h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .filter-group label {
+            font-size: 0.8rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-row select {
+            width: 70px;
+        }
+
+        .filter-row input,
+        .filter-row select.filter-value {
+            flex: 1;
+        }
+
+        .sort-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .sort-row select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: white;
+            min-width: 200px;
+        }
+
+        .sort-row select:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .reverse-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .reverse-toggle input {
+            cursor: pointer;
+        }
+
+        .control-btn-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .apply-btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .apply-btn:hover {
+            background: #4f46e5;
+        }
+
+        .clear-btn {
+            background: #f3f4f6;
+            color: #555;
+            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .clear-btn:hover {
+            background: #e5e7eb;
+        }
+
+        /* Results info */
+        .results-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Book List */
         .book-list {
             display: flex;
             flex-direction: column;
@@ -92,29 +295,13 @@
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 1.25rem;
+            position: relative;
         }
 
-        .book-cover {
-            width: 100px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-            background: #e5e5e5;
-            flex-shrink: 0;
-        }
-
-        .book-cover-placeholder {
-            width: 100px;
-            height: 150px;
-            background: white;
-            flex-shrink: 0;
-        }
-
-        .book-info {
-            flex: 1;
-            min-width: 0;
+        .book-category-corner {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
         }
 
         .book-header {
@@ -122,6 +309,39 @@
             justify-content: space-between;
             align-items: flex-start;
             gap: 1rem;
+            padding-right: 80px;
+        }
+
+        .book-content {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .book-image {
+            width: 80px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+
+        .book-image-placeholder {
+            width: 80px;
+            height: 120px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background: white;
+        }
+
+        .book-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 0.5rem;
         }
 
         .book-title {
@@ -133,15 +353,23 @@
 
         .book-author {
             color: #666;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-dates {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.5rem;
         }
 
         .book-meta {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            align-items: center;
         }
 
         .book-meta span {
@@ -161,160 +389,112 @@
             font-size: 0.9rem;
         }
 
-        .category {
+        .category-badge {
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .category-thriller {
             background: #fee2e2;
-            color: #991b1b;
+            color: #b91c1c;
         }
 
         .category-detective {
             background: #dbeafe;
-            color: #1e40af;
+            color: #1d4ed8;
         }
 
         .category-other {
             background: #f3f4f6;
-            color: #374151;
-        }
-
-        .book-dates {
-            font-size: 0.85rem;
-            color: #333;
-            margin-top: 0.5rem;
+            color: #4b5563;
         }
 
         .preview-text {
-            font-size: 0.85rem;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .preview-link {
+            color: #6366f1;
             cursor: pointer;
+            text-decoration: underline;
         }
 
-        .preview-text:hover {
-            color: #333;
-        }
-
-        .info-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #e5e5e5;
-            color: #666;
-            font-size: 0.7rem;
-            font-weight: bold;
-            font-style: italic;
-            font-family: Georgia, serif;
-        }
-
-        .preview-text:hover .info-icon {
-            background: #d5d5d5;
-        }
-
-        .book-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-shrink: 0;
-            align-items: center;
-        }
-
-        .edit-btn, .delete-btn {
-            padding: 0.25rem 0.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .edit-btn {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .delete-btn {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .preview-btn, .plot-btn {
-            background: none;
-            border: 1px solid #ddd;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .preview-btn:hover, .plot-btn:hover {
-            background: #f5f5f5;
+        .preview-link:hover {
+            color: #4f46e5;
         }
 
         /* Modal styles */
-        .modal {
-            display: none;
+        .modal-backdrop {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
         }
 
-        .modal-content {
+        .modal {
             background: white;
-            padding: 2rem;
             border-radius: 12px;
+            width: 100%;
             max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #eee;
         }
 
-        .modal-header h2 {
-            font-size: 1.25rem;
+        .modal-title {
+            font-weight: 600;
+            color: #1a1a1a;
         }
 
-        .close-btn {
+        .modal-close {
             background: none;
             border: none;
             font-size: 1.5rem;
-            cursor: pointer;
             color: #666;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
         }
 
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 1.25rem;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        /* Form modal styles */
         .form-group {
             margin-bottom: 1rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.25rem;
             font-weight: 500;
-            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            color: #374151;
         }
 
         .form-group input,
@@ -322,14 +502,15 @@
         .form-group textarea {
             width: 100%;
             padding: 0.5rem;
-            border: 1px solid #ddd;
+            border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 1rem;
+            font-family: inherit;
         }
 
         .form-group textarea {
-            min-height: 80px;
             resize: vertical;
+            min-height: 80px;
         }
 
         .form-row {
@@ -338,90 +519,39 @@
             gap: 1rem;
         }
 
-        .form-actions {
+        .modal-actions {
             display: flex;
-            gap: 0.5rem;
             justify-content: flex-end;
+            gap: 0.5rem;
             margin-top: 1.5rem;
         }
 
-        .btn-cancel {
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
+        .confirm-message {
+            margin: 1rem 0;
         }
 
-        .btn-save {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: #2563eb;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .btn-delete {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: #dc2626;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        /* Image upload styles */
-        .image-upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-            padding: 1rem;
+        .loading {
             text-align: center;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .image-upload-area:hover {
-            border-color: #2563eb;
-        }
-
-        .image-upload-area.has-image {
-            border-style: solid;
-            border-color: #10b981;
-        }
-
-        .image-preview {
-            max-width: 120px;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-        }
-
-        .image-upload-text {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .image-upload-area input[type="file"] {
-            display: none;
-        }
-
-        .remove-image-btn {
-            margin-top: 0.5rem;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.8rem;
-            background: #fee2e2;
-            color: #991b1b;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .loading-text {
-            text-align: center;
-            color: #666;
             padding: 2rem;
+            color: #666;
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #dc2626;
+            background: #fef2f2;
+            border-radius: 8px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         @media (max-width: 600px) {
@@ -429,17 +559,36 @@
                 padding: 1rem;
             }
 
-            .book-card {
+            header {
                 flex-direction: column;
             }
 
-            .book-cover {
-                width: 80px;
-                height: 120px;
+            .header-right {
+                width: 100%;
+                justify-content: flex-start;
             }
 
-            .form-row {
+            .filter-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .sort-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-row select {
+                width: 100%;
+            }
+
+            .book-content {
+                flex-direction: column;
+            }
+
+            .book-image,
+            .book-image-placeholder {
+                width: 60px;
+                height: 90px;
             }
         }
     </style>
@@ -447,185 +596,298 @@
 <body>
     <div class="container">
         <header>
-            <div>
+            <div class="header-left">
                 <h1>📚 My Book Collection</h1>
                 <p class="stats" id="stats">Loading...</p>
             </div>
-            <div class="auth-section">
-                <button class="add-btn hidden" id="addBtn">+ Add Book</button>
-                <button class="auth-btn" id="signInBtn">Sign In</button>
-                <button class="auth-btn hidden" id="signOutBtn">Sign Out</button>
+            <div class="header-right">
+                <span class="user-info" id="user-info"></span>
+                <button class="btn btn-primary hidden" id="add-btn">+ Add Book</button>
+                <button class="btn btn-secondary" id="sign-in-btn">Sign In</button>
+                <button class="btn btn-secondary hidden" id="sign-out-btn">Sign Out</button>
             </div>
         </header>
 
-        <div class="book-list" id="bookList">
-            <p class="loading-text">Loading books...</p>
-        </div>
-    </div>
-
-    <!-- Text Modal (for preview/plot) -->
-    <div class="modal" id="textModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="textModalTitle">Title</h2>
-                <button class="close-btn" onclick="closeTextModal()">×</button>
+        <!-- Filter & Sort Controls -->
+        <div class="controls">
+            <div class="controls-header">
+                <h2>🔍 Filter & Sort</h2>
+                <button class="toggle-btn" id="toggleControls">Show</button>
             </div>
-            <p id="textModalContent">Content</p>
-        </div>
-    </div>
-
-    <!-- Add/Edit Book Modal -->
-    <div class="modal" id="bookModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Add Book</h2>
-                <button class="close-btn" onclick="closeBookModal()">×</button>
-            </div>
-            <form id="bookForm">
-                <input type="hidden" id="bookId">
-                
-                <!-- Image Upload -->
-                <div class="form-group">
-                    <label>Cover Image</label>
-                    <div class="image-upload-area" id="imageUploadArea" onclick="document.getElementById('coverImage').click()">
-                        <input type="file" id="coverImage" accept="image/*" onchange="handleImageSelect(event)">
-                        <div id="imagePreviewContainer">
-                            <p class="image-upload-text">📷 Click to upload cover image<br><small>(will be resized to max 300px)</small></p>
+            <div class="controls-content" id="controlsContent">
+                <div class="control-section">
+                    <h3>Filter</h3>
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="filterTitle">Title</label>
+                            <input type="text" id="filterTitle" placeholder="Search title...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterAuthor">Author</label>
+                            <input type="text" id="filterAuthor" placeholder="Search author...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterSeries">Series</label>
+                            <input type="text" id="filterSeries" placeholder="Search series...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterCategory">Category</label>
+                            <select id="filterCategory">
+                                <option value="">All categories</option>
+                                <option value="thriller">Thriller</option>
+                                <option value="detective">Detective</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Rating</label>
+                            <div class="filter-row">
+                                <select id="filterRatingOp">
+                                    <option value="">Any</option>
+                                    <option value="=">=</option>
+                                    <option value=">=">≥</option>
+                                    <option value="<=">≤</option>
+                                </select>
+                                <select id="filterRatingVal" class="filter-value">
+                                    <option value="">-</option>
+                                    <option value="1">★</option>
+                                    <option value="2">★★</option>
+                                    <option value="3">★★★</option>
+                                    <option value="4">★★★★</option>
+                                    <option value="5">★★★★★</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Date Read</label>
+                            <div class="filter-row">
+                                <select id="filterDateOp">
+                                    <option value="">Any</option>
+                                    <option value="=">=</option>
+                                    <option value=">=">≥</option>
+                                    <option value="<=">≤</option>
+                                </select>
+                                <input type="date" id="filterDateVal" class="filter-value">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Title *</label>
-                    <input type="text" id="title" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Author *</label>
-                    <input type="text" id="author" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Pages</label>
-                        <input type="number" id="pages">
-                    </div>
-                    <div class="form-group">
-                        <label>Rating</label>
-                        <select id="rating">
-                            <option value="5">★★★★★</option>
-                            <option value="4">★★★★☆</option>
-                            <option value="3">★★★☆☆</option>
-                            <option value="2">★★☆☆☆</option>
-                            <option value="1">★☆☆☆☆</option>
+                <div class="control-section">
+                    <h3>Sort</h3>
+                    <div class="sort-row">
+                        <select id="sortBy">
+                            <option value="dateRead">Date read</option>
+                            <option value="category-author-firstEdition">Category → Author → First edition</option>
+                            <option value="author-series-firstEdition">Author → Series → First edition</option>
+                            <option value="rating-author-series-firstEdition">Rating → Author → Series → First edition</option>
                         </select>
+                        <label class="reverse-toggle">
+                            <input type="checkbox" id="sortReverse">
+                            Reverse order
+                        </label>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Series</label>
-                    <input type="text" id="series" placeholder="e.g. Robert Langdon serie">
+                <div class="control-btn-row">
+                    <button class="apply-btn" id="applyBtn">Apply</button>
+                    <button class="clear-btn" id="clearBtn">Clear filters</button>
                 </div>
+            </div>
+        </div>
 
-                <div class="form-row">
+        <p class="results-info" id="resultsInfo"></p>
+        <div class="book-list" id="bookList">
+            <p class="loading">Loading books...</p>
+        </div>
+    </div>
+
+    <!-- Title/Content Modal -->
+    <div class="modal-backdrop hidden" id="titleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="titleModalTitle">Title</span>
+                <button class="modal-close" onclick="closeTitleModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="titleModalContent">
+                Content
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Book Modal -->
+    <div class="modal-backdrop hidden" id="bookModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="bookModalTitle">Add Book</span>
+                <button class="modal-close" onclick="closeBookModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="bookForm">
+                    <input type="hidden" id="bookId">
                     <div class="form-group">
-                        <label>Category</label>
-                        <select id="category">
-                            <option value="">-- Select --</option>
-                            <option value="thriller">Thriller</option>
-                            <option value="detective">Detective</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <label for="bookTitle">Title *</label>
+                        <input type="text" id="bookTitle" required>
                     </div>
                     <div class="form-group">
-                        <label>First Edition (year)</label>
-                        <input type="text" id="firstEdition" maxlength="4" placeholder="YYYY">
+                        <label for="bookAuthor">Author *</label>
+                        <input type="text" id="bookAuthor" required>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Date Read</label>
-                    <input type="text" id="dateRead" placeholder="e.g. Jun 2025">
-                </div>
-
-                <div class="form-group">
-                    <label>Preview</label>
-                    <textarea id="preview" placeholder="Short preview or teaser..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Plot</label>
-                    <textarea id="plot" placeholder="Plot summary..."></textarea>
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn-cancel" onclick="closeBookModal()">Cancel</button>
-                    <button type="submit" class="btn-save">Save</button>
-                </div>
-            </form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookPages">Pages</label>
+                            <input type="number" id="bookPages" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookRating">Rating</label>
+                            <select id="bookRating">
+                                <option value="5">★★★★★</option>
+                                <option value="4">★★★★☆</option>
+                                <option value="3">★★★☆☆</option>
+                                <option value="2">★★☆☆☆</option>
+                                <option value="1">★☆☆☆☆</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookSeries">Series</label>
+                        <input type="text" id="bookSeries">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookCategory">Category</label>
+                            <select id="bookCategory">
+                                <option value="">-- Select --</option>
+                                <option value="thriller">Thriller</option>
+                                <option value="detective">Detective</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookFirstEdition">First Edition (year)</label>
+                            <input type="text" id="bookFirstEdition" maxlength="4" placeholder="e.g. 2023">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookDateRead">Date Read</label>
+                        <input type="month" id="bookDateRead">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookPreview">Preview</label>
+                        <textarea id="bookPreview" placeholder="Short preview or teaser..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookPlot">Plot</label>
+                        <textarea id="bookPlot" placeholder="Full plot summary..."></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeBookModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal" id="deleteModal">
-        <div class="modal-content">
+    <div class="modal-backdrop hidden" id="deleteModal">
+        <div class="modal">
             <div class="modal-header">
-                <h2>Delete Book</h2>
-                <button class="close-btn" onclick="closeDeleteModal()">×</button>
+                <span class="modal-title">Delete Book</span>
+                <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
             </div>
-            <p>Are you sure you want to delete this book?</p>
-            <div class="form-actions">
-                <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
-                <button class="btn-delete" id="confirmDeleteBtn">Delete</button>
+            <div class="modal-body">
+                <p class="confirm-message">Are you sure you want to delete this book?</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-        import { getAuth, signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Firebase configuration
+        // Firebase config
         const firebaseConfig = {
             apiKey: "AIzaSyC7oDuArIH_LMQbSyKE8k1g0m3n_fa1NH8",
             authDomain: "my-books-4ef15.firebaseapp.com",
             projectId: "my-books-4ef15",
             storageBucket: "my-books-4ef15.firebasestorage.app",
             messagingSenderId: "920189621468",
-            appId: "1:920189621468:web:101a4c439e8e3cbd18d019",
-            measurementId: "G-04FBFW09HS"
+            appId: "1:920189621468:web:101a4c439e8e3cbd18d019"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        const storage = getStorage(app);
         const provider = new GoogleAuthProvider();
 
-        const OWNER_EMAIL = 'uiterlex@gmail.com';
+        // Owner email
+        const OWNER_EMAIL = "uiterlex@gmail.com";
+
+        // State
+        let allBooks = [];
+        let filteredBooks = [];
         let currentUser = null;
         let isOwner = false;
-        let books = [];
-        let editingBookId = null;
-        let pendingImageFile = null;
-        let currentImageUrl = null;
+        let bookToDelete = null;
 
         // DOM elements
-        const bookList = document.getElementById('bookList');
-        const stats = document.getElementById('stats');
-        const signInBtn = document.getElementById('signInBtn');
-        const signOutBtn = document.getElementById('signOutBtn');
-        const addBtn = document.getElementById('addBtn');
-        const bookModal = document.getElementById('bookModal');
-        const bookForm = document.getElementById('bookForm');
-        const textModal = document.getElementById('textModal');
-        const deleteModal = document.getElementById('deleteModal');
+        const statsEl = document.getElementById('stats');
+        const bookListEl = document.getElementById('bookList');
+        const resultsInfoEl = document.getElementById('resultsInfo');
+        const userInfoEl = document.getElementById('user-info');
+        const addBtn = document.getElementById('add-btn');
+        const signInBtn = document.getElementById('sign-in-btn');
+        const signOutBtn = document.getElementById('sign-out-btn');
 
-        // Auth state listener
+        // Filter/Sort controls
+        const toggleBtn = document.getElementById('toggleControls');
+        const controlsContent = document.getElementById('controlsContent');
+        const applyBtn = document.getElementById('applyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        const filterTitle = document.getElementById('filterTitle');
+        const filterAuthor = document.getElementById('filterAuthor');
+        const filterSeries = document.getElementById('filterSeries');
+        const filterCategory = document.getElementById('filterCategory');
+        const filterRatingOp = document.getElementById('filterRatingOp');
+        const filterRatingVal = document.getElementById('filterRatingVal');
+        const filterDateOp = document.getElementById('filterDateOp');
+        const filterDateVal = document.getElementById('filterDateVal');
+        const sortBy = document.getElementById('sortBy');
+        const sortReverse = document.getElementById('sortReverse');
+
+        // Modals
+        const titleModal = document.getElementById('titleModal');
+        const bookModal = document.getElementById('bookModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const bookForm = document.getElementById('bookForm');
+
+        // --- Authentication ---
+        signInBtn.addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error('Sign in error:', error);
+                alert('Sign in failed. Please try again.');
+            }
+        });
+
+        signOutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error('Sign out error:', error);
+            }
+        });
+
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             isOwner = user && user.email === OWNER_EMAIL;
@@ -634,318 +896,399 @@
         });
 
         function updateAuthUI() {
-            signInBtn.classList.toggle('hidden', currentUser !== null);
-            signOutBtn.classList.toggle('hidden', currentUser === null);
-            addBtn.classList.toggle('hidden', !isOwner);
+            if (currentUser) {
+                userInfoEl.textContent = currentUser.email;
+                signInBtn.classList.add('hidden');
+                signOutBtn.classList.remove('hidden');
+                addBtn.classList.toggle('hidden', !isOwner);
+            } else {
+                userInfoEl.textContent = '';
+                signInBtn.classList.remove('hidden');
+                signOutBtn.classList.add('hidden');
+                addBtn.classList.add('hidden');
+            }
         }
 
-        // Sign in/out handlers
-        signInBtn.addEventListener('click', () => {
-            signInWithPopup(auth, provider).catch(err => console.error('Sign in error:', err));
+        // --- Filter & Sort Controls ---
+        toggleBtn.addEventListener('click', () => {
+            controlsContent.classList.toggle('show');
+            toggleBtn.textContent = controlsContent.classList.contains('show') ? 'Hide' : 'Show';
         });
 
-        signOutBtn.addEventListener('click', () => {
-            signOut(auth).catch(err => console.error('Sign out error:', err));
+        applyBtn.addEventListener('click', applyFiltersAndSort);
+
+        clearBtn.addEventListener('click', () => {
+            filterTitle.value = '';
+            filterAuthor.value = '';
+            filterSeries.value = '';
+            filterCategory.value = '';
+            filterRatingOp.value = '';
+            filterRatingVal.value = '';
+            filterDateOp.value = '';
+            filterDateVal.value = '';
+            sortBy.value = 'dateRead';
+            sortReverse.checked = false;
+            applyFiltersAndSort();
         });
 
-        // Load books with real-time updates
-        const booksQuery = query(collection(db, 'books'), orderBy('dateRead', 'desc'));
-        onSnapshot(booksQuery, (snapshot) => {
-            books = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        // --- Filter & Sort Logic ---
+        function applyFiltersAndSort() {
+            filteredBooks = allBooks.filter(book => {
+                // Title filter
+                if (filterTitle.value) {
+                    if (!book.title.toLowerCase().includes(filterTitle.value.toLowerCase())) {
+                        return false;
+                    }
+                }
+
+                // Author filter
+                if (filterAuthor.value) {
+                    if (!book.author.toLowerCase().includes(filterAuthor.value.toLowerCase())) {
+                        return false;
+                    }
+                }
+
+                // Series filter
+                if (filterSeries.value) {
+                    if (!book.series || !book.series.toLowerCase().includes(filterSeries.value.toLowerCase())) {
+                        return false;
+                    }
+                }
+
+                // Category filter
+                if (filterCategory.value) {
+                    if (book.category !== filterCategory.value) {
+                        return false;
+                    }
+                }
+
+                // Rating filter
+                if (filterRatingOp.value && filterRatingVal.value) {
+                    const bookRating = book.rating || 0;
+                    const filterVal = parseInt(filterRatingVal.value);
+                    if (!compareValues(bookRating, filterRatingOp.value, filterVal)) {
+                        return false;
+                    }
+                }
+
+                // Date read filter
+                if (filterDateOp.value && filterDateVal.value) {
+                    const bookDate = book.dateRead || '';
+                    const filterDate = filterDateVal.value;
+                    if (!bookDate || !compareDates(bookDate, filterDateOp.value, filterDate)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            sortBooks();
             renderBooks();
-            updateStats();
-        });
-
-        function updateStats() {
-            const totalPages = books.reduce((sum, book) => sum + (book.pages || 0), 0);
-            stats.textContent = `${books.length} book${books.length !== 1 ? 's' : ''} read · ${totalPages.toLocaleString()} pages`;
+            updateResultsInfo();
         }
 
+        function compareValues(val1, operator, val2) {
+            switch (operator) {
+                case '=': return val1 === val2;
+                case '>=': return val1 >= val2;
+                case '<=': return val1 <= val2;
+                default: return true;
+            }
+        }
+
+        function compareDates(date1, operator, date2) {
+            // Normalize dates for comparison (yyyy-mm to yyyy-mm-01)
+            const d1 = date1.length === 7 ? date1 + '-01' : date1.substring(0, 10);
+            const d2 = date2.substring(0, 10);
+            switch (operator) {
+                case '=': 
+                    // For equality, compare year-month only
+                    return d1.substring(0, 7) === d2.substring(0, 7);
+                case '>=': return d1 >= d2;
+                case '<=': return d1 <= d2;
+                default: return true;
+            }
+        }
+
+        function sortBooks() {
+            const sortType = sortBy.value;
+            const reverse = sortReverse.checked;
+
+            filteredBooks.sort((a, b) => {
+                let result = 0;
+
+                switch (sortType) {
+                    case 'dateRead':
+                        // Default: newest first (descending)
+                        result = (b.dateRead || '').localeCompare(a.dateRead || '');
+                        break;
+
+                    case 'category-author-firstEdition':
+                        result = (a.category || '').localeCompare(b.category || '') ||
+                                 (a.author || '').localeCompare(b.author || '') ||
+                                 (a.firstEdition || '').localeCompare(b.firstEdition || '');
+                        break;
+
+                    case 'author-series-firstEdition':
+                        result = (a.author || '').localeCompare(b.author || '') ||
+                                 (a.series || '').localeCompare(b.series || '') ||
+                                 (a.firstEdition || '').localeCompare(b.firstEdition || '');
+                        break;
+
+                    case 'rating-author-series-firstEdition':
+                        result = (b.rating || 0) - (a.rating || 0) ||
+                                 (a.author || '').localeCompare(b.author || '') ||
+                                 (a.series || '').localeCompare(b.series || '') ||
+                                 (a.firstEdition || '').localeCompare(b.firstEdition || '');
+                        break;
+                }
+
+                return reverse ? -result : result;
+            });
+        }
+
+        function updateResultsInfo() {
+            const hasFilters = filterTitle.value || filterAuthor.value || filterSeries.value || 
+                              filterCategory.value || (filterRatingOp.value && filterRatingVal.value) ||
+                              (filterDateOp.value && filterDateVal.value);
+            
+            if (hasFilters) {
+                resultsInfoEl.textContent = `Showing ${filteredBooks.length} of ${allBooks.length} books`;
+            } else {
+                resultsInfoEl.textContent = '';
+            }
+        }
+
+        // --- Rendering ---
         function renderStars(rating) {
-            const filled = '★'.repeat(rating || 0);
-            const empty = '☆'.repeat(5 - (rating || 0));
-            return filled + empty;
+            const filled = rating || 0;
+            const empty = 5 - filled;
+            return '★'.repeat(filled) + '☆'.repeat(empty);
+        }
+
+        function getCategoryClass(category) {
+            switch (category) {
+                case 'thriller': return 'category-thriller';
+                case 'detective': return 'category-detective';
+                default: return 'category-other';
+            }
+        }
+
+        function formatDateRead(dateStr) {
+            if (!dateStr) return '';
+            if (dateStr.length >= 7) {
+                const [year, month] = dateStr.split('-');
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                return `${monthNames[parseInt(month) - 1]} ${year}`;
+            }
+            return dateStr;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        function capitalize(str) {
+            return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
         }
 
         function renderBooks() {
-            if (books.length === 0) {
-                bookList.innerHTML = '<p class="loading-text">No books yet. Add your first book!</p>';
+            if (filteredBooks.length === 0) {
+                bookListEl.innerHTML = '<div class="no-results">No books match your filters.</div>';
                 return;
             }
 
-            bookList.innerHTML = books.map(book => `
+            bookListEl.innerHTML = filteredBooks.map(book => `
                 <article class="book-card">
-                    ${book.coverUrl 
-                        ? `<img src="${book.coverUrl}" alt="${book.title}" class="book-cover">`
-                        : `<div class="book-cover-placeholder"></div>`
-                    }
-                    <div class="book-info">
-                        <div class="book-header">
-                            <div>
-                                <h2 class="book-title">${book.title}</h2>
-                                <p class="book-author">${book.author}</p>
-                            </div>
-                            <div class="book-actions">
+                    ${book.category ? `
+                        <div class="book-category-corner">
+                            <span class="category-badge ${getCategoryClass(book.category)}">${capitalize(book.category)}</span>
+                        </div>
+                    ` : ''}
+                    <div class="book-content">
+                        ${book.imageUrl 
+                            ? `<img src="${escapeHtml(book.imageUrl)}" alt="${escapeHtml(book.title)}" class="book-image">`
+                            : `<div class="book-image-placeholder"></div>`
+                        }
+                        <div class="book-info">
+                            <div class="book-header">
+                                <div>
+                                    <h2 class="book-title">${escapeHtml(book.title)}</h2>
+                                    <p class="book-author">${escapeHtml(book.author)}</p>
+                                </div>
                                 ${isOwner ? `
-                                    <button class="edit-btn" onclick="window.editBook('${book.id}')">Edit</button>
-                                    <button class="delete-btn" onclick="window.confirmDelete('${book.id}')">Delete</button>
+                                    <div class="book-actions">
+                                        <button class="btn btn-secondary btn-small" onclick="openEditModal('${book.id}')">Edit</button>
+                                        <button class="btn btn-danger btn-small" onclick="openDeleteModal('${book.id}')">Delete</button>
+                                    </div>
                                 ` : ''}
-                                ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
                             </div>
-                        </div>
-                        <div class="book-meta">
-                            <span class="stars">${renderStars(book.rating)}</span>
-                            ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
-                            ${book.series ? `<span class="series">Series: ${book.series}</span>` : ''}
-                        </div>
-                        ${book.preview ? `
-                            <div class="preview-text" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`')}\`)">
-                                ${book.preview.length > 30 ? book.preview.substring(0, 30) + '...' : book.preview}
-                                <span class="info-icon">i</span>
+                            ${book.dateRead || book.firstEdition ? `
+                                <div class="book-dates">
+                                    ${book.dateRead ? `<span>📅 Read: ${formatDateRead(book.dateRead)}</span>` : ''}
+                                    ${book.firstEdition ? `<span>📖 First ed: ${escapeHtml(book.firstEdition)}</span>` : ''}
+                                </div>
+                            ` : ''}
+                            <div class="book-meta">
+                                <span class="stars">${renderStars(book.rating)}</span>
+                                ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
+                                ${book.series ? `<span class="series">Series: ${escapeHtml(book.series)}</span>` : ''}
                             </div>
-                        ` : ''}
-                        ${book.plot ? `<button class="plot-btn" onclick="window.showText('Plot', \`${book.plot.replace(/`/g, '\\`')}\`)">Plot</button>` : ''}
-                        ${book.dateRead || book.firstEdition ? `
-                            <p class="book-dates">
-                                ${book.dateRead ? `Read: ${book.dateRead}` : ''}
-                                ${book.dateRead && book.firstEdition ? '&nbsp;&nbsp;&nbsp;' : ''}
-                                ${book.firstEdition ? `First edition: ${book.firstEdition}` : ''}
-                            </p>
-                        ` : ''}
+                            ${book.preview || book.plot ? `
+                                <div class="preview-text">
+                                    ${book.preview ? `<span class="preview-link" onclick="showPreview('${book.id}')">Preview</span>` : ''}
+                                    ${book.preview && book.plot ? ' · ' : ''}
+                                    ${book.plot ? `<span class="preview-link" onclick="showPlot('${book.id}')">Plot</span>` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                 </article>
             `).join('');
         }
 
-        // Image handling
-        window.handleImageSelect = function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            // Resize image before storing
-            resizeImage(file, 300, 450).then(resizedBlob => {
-                pendingImageFile = resizedBlob;
-                showImagePreview(URL.createObjectURL(resizedBlob));
-            });
-        };
-
-        function resizeImage(file, maxWidth, maxHeight) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    let { width, height } = img;
-                    
-                    // Calculate new dimensions maintaining aspect ratio
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width = Math.round(width * ratio);
-                        height = Math.round(height * ratio);
-                    }
-
-                    const canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    canvas.toBlob(resolve, 'image/jpeg', 0.85);
-                };
-                img.src = URL.createObjectURL(file);
-            });
+        function updateStats() {
+            const totalBooks = allBooks.length;
+            const totalPages = allBooks.reduce((sum, book) => sum + (book.pages || 0), 0);
+            statsEl.textContent = `${totalBooks} book${totalBooks !== 1 ? 's' : ''} read · ${totalPages.toLocaleString()} pages`;
         }
 
-        function showImagePreview(url) {
-            const container = document.getElementById('imagePreviewContainer');
-            const uploadArea = document.getElementById('imageUploadArea');
-            uploadArea.classList.add('has-image');
-            container.innerHTML = `
-                <img src="${url}" class="image-preview" alt="Cover preview">
-                <br>
-                <button type="button" class="remove-image-btn" onclick="window.removeImage(event)">Remove image</button>
-            `;
-        }
-
-        window.removeImage = function(event) {
-            event.stopPropagation();
-            pendingImageFile = null;
-            currentImageUrl = null;
-            resetImageUpload();
-        };
-
-        function resetImageUpload() {
-            const container = document.getElementById('imagePreviewContainer');
-            const uploadArea = document.getElementById('imageUploadArea');
-            uploadArea.classList.remove('has-image');
-            container.innerHTML = `<p class="image-upload-text">📷 Click to upload cover image<br><small>(will be resized to max 300px)</small></p>`;
-            document.getElementById('coverImage').value = '';
-        }
-
-        async function uploadImage(bookId) {
-            if (!pendingImageFile) return currentImageUrl;
-            
-            const storageRef = ref(storage, `covers/${bookId}.jpg`);
-            await uploadBytes(storageRef, pendingImageFile);
-            return await getDownloadURL(storageRef);
-        }
-
-        async function deleteImage(bookId) {
-            try {
-                const storageRef = ref(storage, `covers/${bookId}.jpg`);
-                await deleteObject(storageRef);
-            } catch (e) {
-                // Image might not exist, ignore error
+        // --- Modals ---
+        window.showPreview = function(bookId) {
+            const book = allBooks.find(b => b.id === bookId);
+            if (book && book.preview) {
+                document.getElementById('titleModalTitle').textContent = `${book.title} - Preview`;
+                document.getElementById('titleModalContent').textContent = book.preview;
+                titleModal.classList.remove('hidden');
             }
-        }
+        };
 
-        // Modal functions
-        addBtn.addEventListener('click', () => openBookModal());
+        window.showPlot = function(bookId) {
+            const book = allBooks.find(b => b.id === bookId);
+            if (book && book.plot) {
+                document.getElementById('titleModalTitle').textContent = `${book.title} - Plot`;
+                document.getElementById('titleModalContent').textContent = book.plot;
+                titleModal.classList.remove('hidden');
+            }
+        };
 
-        function openBookModal(book = null) {
-            editingBookId = book?.id || null;
-            document.getElementById('modalTitle').textContent = book ? 'Edit Book' : 'Add Book';
-            
-            // Reset form
+        window.closeTitleModal = function() {
+            titleModal.classList.add('hidden');
+        };
+
+        // Add Book Modal
+        addBtn.addEventListener('click', () => {
+            document.getElementById('bookModalTitle').textContent = 'Add Book';
             bookForm.reset();
-            pendingImageFile = null;
-            currentImageUrl = book?.coverUrl || null;
-            resetImageUpload();
+            document.getElementById('bookId').value = '';
+            bookModal.classList.remove('hidden');
+        });
 
-            // Fill form if editing
-            if (book) {
-                document.getElementById('title').value = book.title || '';
-                document.getElementById('author').value = book.author || '';
-                document.getElementById('pages').value = book.pages || '';
-                document.getElementById('rating').value = book.rating || 5;
-                document.getElementById('series').value = book.series || '';
-                document.getElementById('category').value = book.category || '';
-                document.getElementById('firstEdition').value = book.firstEdition || '';
-                document.getElementById('dateRead').value = book.dateRead || '';
-                document.getElementById('preview').value = book.preview || '';
-                document.getElementById('plot').value = book.plot || '';
-                
-                if (book.coverUrl) {
-                    showImagePreview(book.coverUrl);
-                }
-            }
+        window.openEditModal = function(bookId) {
+            const book = allBooks.find(b => b.id === bookId);
+            if (!book) return;
 
-            bookModal.classList.add('active');
-        }
+            document.getElementById('bookModalTitle').textContent = 'Edit Book';
+            document.getElementById('bookId').value = book.id;
+            document.getElementById('bookTitle').value = book.title || '';
+            document.getElementById('bookAuthor').value = book.author || '';
+            document.getElementById('bookPages').value = book.pages || '';
+            document.getElementById('bookRating').value = book.rating || 5;
+            document.getElementById('bookSeries').value = book.series || '';
+            document.getElementById('bookCategory').value = book.category || '';
+            document.getElementById('bookFirstEdition').value = book.firstEdition || '';
+            document.getElementById('bookDateRead').value = book.dateRead || '';
+            document.getElementById('bookPreview').value = book.preview || '';
+            document.getElementById('bookPlot').value = book.plot || '';
+
+            bookModal.classList.remove('hidden');
+        };
 
         window.closeBookModal = function() {
-            bookModal.classList.remove('active');
-            editingBookId = null;
-            pendingImageFile = null;
-            currentImageUrl = null;
+            bookModal.classList.add('hidden');
         };
 
-        window.editBook = function(id) {
-            const book = books.find(b => b.id === id);
-            if (book) openBookModal(book);
-        };
-
-        // Form submission
         bookForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!isOwner) return;
-
+            
             const bookData = {
-                title: document.getElementById('title').value.trim(),
-                author: document.getElementById('author').value.trim(),
-                pages: parseInt(document.getElementById('pages').value) || null,
-                rating: parseInt(document.getElementById('rating').value),
-                series: document.getElementById('series').value.trim() || null,
-                category: document.getElementById('category').value || null,
-                firstEdition: document.getElementById('firstEdition').value.trim() || null,
-                dateRead: document.getElementById('dateRead').value || null,
-                preview: document.getElementById('preview').value.trim() || null,
-                plot: document.getElementById('plot').value.trim() || null
+                title: document.getElementById('bookTitle').value.trim(),
+                author: document.getElementById('bookAuthor').value.trim(),
+                pages: parseInt(document.getElementById('bookPages').value) || null,
+                rating: parseInt(document.getElementById('bookRating').value),
+                series: document.getElementById('bookSeries').value.trim() || null,
+                category: document.getElementById('bookCategory').value || null,
+                firstEdition: document.getElementById('bookFirstEdition').value.trim() || null,
+                dateRead: document.getElementById('bookDateRead').value || null,
+                preview: document.getElementById('bookPreview').value.trim() || null,
+                plot: document.getElementById('bookPlot').value.trim() || null
             };
 
+            const bookId = document.getElementById('bookId').value;
+
             try {
-                if (editingBookId) {
-                    // Handle image: upload new, keep existing, or remove
-                    if (pendingImageFile) {
-                        bookData.coverUrl = await uploadImage(editingBookId);
-                    } else if (currentImageUrl) {
-                        bookData.coverUrl = currentImageUrl;
-                    } else {
-                        bookData.coverUrl = null;
-                        await deleteImage(editingBookId);
-                    }
-                    
-                    await updateDoc(doc(db, 'books', editingBookId), bookData);
+                if (bookId) {
+                    // Update existing book
+                    await updateDoc(doc(db, 'books', bookId), bookData);
                 } else {
-                    // Add new book first to get ID
-                    const docRef = await addDoc(collection(db, 'books'), bookData);
-                    
-                    // Then upload image with the new ID
-                    if (pendingImageFile) {
-                        const coverUrl = await uploadImage(docRef.id);
-                        await updateDoc(doc(db, 'books', docRef.id), { coverUrl });
-                    }
+                    // Add new book
+                    await addDoc(collection(db, 'books'), bookData);
                 }
-                
                 closeBookModal();
-            } catch (err) {
-                console.error('Error saving book:', err);
+            } catch (error) {
+                console.error('Error saving book:', error);
                 alert('Error saving book. Please try again.');
             }
         });
 
-        // Delete functionality
-        let deleteBookId = null;
-
-        window.confirmDelete = function(id) {
-            deleteBookId = id;
-            deleteModal.classList.add('active');
+        // Delete Modal
+        window.openDeleteModal = function(bookId) {
+            bookToDelete = bookId;
+            deleteModal.classList.remove('hidden');
         };
 
         window.closeDeleteModal = function() {
-            deleteModal.classList.remove('active');
-            deleteBookId = null;
+            bookToDelete = null;
+            deleteModal.classList.add('hidden');
         };
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
-            if (!deleteBookId || !isOwner) return;
-            
+            if (!bookToDelete) return;
+
             try {
-                await deleteImage(deleteBookId);
-                await deleteDoc(doc(db, 'books', deleteBookId));
+                await deleteDoc(doc(db, 'books', bookToDelete));
                 closeDeleteModal();
-            } catch (err) {
-                console.error('Error deleting book:', err);
+            } catch (error) {
+                console.error('Error deleting book:', error);
                 alert('Error deleting book. Please try again.');
             }
         });
 
-        // Text modal (preview/plot)
-        window.showText = function(title, content) {
-            document.getElementById('textModalTitle').textContent = title;
-            document.getElementById('textModalContent').textContent = content;
-            textModal.classList.add('active');
-        };
-
-        window.closeTextModal = function() {
-            textModal.classList.remove('active');
-        };
-
         // Close modals on backdrop click
-        [bookModal, textModal, deleteModal].forEach(modal => {
+        [titleModal, bookModal, deleteModal].forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
-                    modal.classList.remove('active');
+                    modal.classList.add('hidden');
+                    bookToDelete = null;
                 }
             });
         });
 
-        // Close modals on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                bookModal.classList.remove('active');
-                textModal.classList.remove('active');
-                deleteModal.classList.remove('active');
-            }
+        // --- Firebase Listener ---
+        onSnapshot(collection(db, 'books'), (snapshot) => {
+            allBooks = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            updateStats();
+            applyFiltersAndSort();
+        }, (error) => {
+            console.error('Error fetching books:', error);
+            bookListEl.innerHTML = '<div class="error">Error loading books. Please try again later.</div>';
         });
     </script>
 </body>
