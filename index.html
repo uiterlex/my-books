@@ -94,7 +94,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             display: flex;
             gap: 1.25rem;
-            position: relative;
         }
 
         .book-cover {
@@ -103,6 +102,13 @@
             object-fit: cover;
             border-radius: 4px;
             background: #e5e5e5;
+            flex-shrink: 0;
+        }
+
+        .book-cover-placeholder {
+            width: 100px;
+            height: 150px;
+            background: white;
             flex-shrink: 0;
         }
 
@@ -151,11 +157,8 @@
         }
 
         .series {
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            color: #666;
+            font-size: 0.9rem;
         }
 
         .category {
@@ -183,12 +186,6 @@
             font-size: 0.85rem;
             color: #333;
             margin-top: 0.5rem;
-        }
-
-        .book-category-corner {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
         }
 
         .preview-text {
@@ -226,6 +223,8 @@
         .book-actions {
             display: flex;
             gap: 0.5rem;
+            flex-shrink: 0;
+            align-items: center;
         }
 
         .edit-btn, .delete-btn {
@@ -546,7 +545,7 @@
 
                 <div class="form-group">
                     <label>Date Read</label>
-                    <input type="month" id="dateRead">
+                    <input type="text" id="dateRead" placeholder="e.g. Jun 2025">
                 </div>
 
                 <div class="form-group">
@@ -678,26 +677,26 @@
                 <article class="book-card">
                     ${book.coverUrl 
                         ? `<img src="${book.coverUrl}" alt="${book.title}" class="book-cover">`
-                        : ''
+                        : `<div class="book-cover-placeholder"></div>`
                     }
-                    ${book.category ? `<span class="book-category-corner category category-${book.category}">${book.category}</span>` : ''}
                     <div class="book-info">
                         <div class="book-header">
                             <div>
                                 <h2 class="book-title">${book.title}</h2>
                                 <p class="book-author">${book.author}</p>
                             </div>
-                            ${isOwner ? `
-                                <div class="book-actions">
+                            <div class="book-actions">
+                                ${isOwner ? `
                                     <button class="edit-btn" onclick="window.editBook('${book.id}')">Edit</button>
                                     <button class="delete-btn" onclick="window.confirmDelete('${book.id}')">Delete</button>
-                                </div>
-                            ` : ''}
+                                ` : ''}
+                                ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
+                            </div>
                         </div>
                         <div class="book-meta">
                             <span class="stars">${renderStars(book.rating)}</span>
                             ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
-                            ${book.series ? `<span class="series">${book.series}</span>` : ''}
+                            ${book.series ? `<span class="series">Series: ${book.series}</span>` : ''}
                         </div>
                         ${book.preview ? `
                             <div class="preview-text" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`')}\`)">
@@ -708,7 +707,7 @@
                         ${book.plot ? `<button class="plot-btn" onclick="window.showText('Plot', \`${book.plot.replace(/`/g, '\\`')}\`)">Plot</button>` : ''}
                         ${book.dateRead || book.firstEdition ? `
                             <p class="book-dates">
-                                ${book.dateRead ? `Read: ${formatDate(book.dateRead)}` : ''}
+                                ${book.dateRead ? `Read: ${book.dateRead}` : ''}
                                 ${book.dateRead && book.firstEdition ? '&nbsp;&nbsp;&nbsp;' : ''}
                                 ${book.firstEdition ? `First edition: ${book.firstEdition}` : ''}
                             </p>
@@ -716,13 +715,6 @@
                     </div>
                 </article>
             `).join('');
-        }
-
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const [year, month] = dateStr.split('-');
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            return `${months[parseInt(month) - 1]} ${year}`;
         }
 
         // Image handling
