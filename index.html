@@ -283,6 +283,11 @@
             flex-shrink: 0;
         }
 
+        .book-cover-placeholder {
+            background: #f8f8f8;
+            border: 1px solid #eee;
+        }
+
         .book-info {
             padding: 1.25rem;
             flex: 1;
@@ -1076,7 +1081,7 @@
                 <article class="book-card">
                     ${book.coverUrl 
                         ? `<img src="${book.coverUrl}" alt="${escapeHtml(book.title)}" class="book-cover">`
-                        : ''
+                        : `<div class="book-cover book-cover-placeholder"></div>`
                     }
                     ${book.category ? `<span class="book-category-corner category category-${book.category}">${book.category}</span>` : ''}
                     <div class="book-info">
