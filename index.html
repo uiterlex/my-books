@@ -98,24 +98,11 @@
         }
 
         .book-cover {
-            width: 80px;
-            height: 120px;
+            width: 100px;
+            height: 150px;
             object-fit: cover;
             border-radius: 4px;
             background: #e5e5e5;
-            flex-shrink: 0;
-        }
-
-        .book-cover-placeholder {
-            width: 80px;
-            height: 120px;
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #6366f1;
             flex-shrink: 0;
         }
 
@@ -163,11 +150,12 @@
             letter-spacing: 1px;
         }
 
-        /* Updated series styling - no colored background */
         .series {
-            color: #666;
-            font-size: 0.9rem;
-            font-style: italic;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
 
         .category {
@@ -193,8 +181,46 @@
 
         .book-dates {
             font-size: 0.85rem;
-            color: #888;
+            color: #333;
             margin-top: 0.5rem;
+        }
+
+        .book-category-corner {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .preview-text {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+        }
+
+        .preview-text:hover {
+            color: #333;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e5e5e5;
+            color: #666;
+            font-size: 0.7rem;
+            font-weight: bold;
+            font-style: italic;
+            font-family: Georgia, serif;
+        }
+
+        .preview-text:hover .info-icon {
+            background: #d5d5d5;
         }
 
         .book-actions {
@@ -408,9 +434,9 @@
                 flex-direction: column;
             }
 
-            .book-cover, .book-cover-placeholder {
-                width: 60px;
-                height: 90px;
+            .book-cover {
+                width: 80px;
+                height: 120px;
             }
 
             .form-row {
@@ -565,13 +591,12 @@
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyC7oDuArIH_LMQbSyKE8k1g0m3n_fa1NH8",
+            apiKey: "AIzaSyCKIhLt65cBP9e_dM0INWvWjAjvCLQ5zWY",
             authDomain: "my-books-4ef15.firebaseapp.com",
             projectId: "my-books-4ef15",
             storageBucket: "my-books-4ef15.firebasestorage.app",
-            messagingSenderId: "920189621468",
-            appId: "1:920189621468:web:101a4c439e8e3cbd18d019",
-            measurementId: "G-04FBFW09HS"
+            messagingSenderId: "367926934498",
+            appId: "1:367926934498:web:4b6a6d4c7e8f9a0b1c2d3e"
         };
 
         // Initialize Firebase
@@ -652,8 +677,9 @@
                 <article class="book-card">
                     ${book.coverUrl 
                         ? `<img src="${book.coverUrl}" alt="${book.title}" class="book-cover">`
-                        : `<div class="book-cover-placeholder">📖</div>`
+                        : ''
                     }
+                    ${book.category ? `<span class="book-category-corner category category-${book.category}">${book.category}</span>` : ''}
                     <div class="book-info">
                         <div class="book-header">
                             <div>
@@ -670,17 +696,19 @@
                         <div class="book-meta">
                             <span class="stars">${renderStars(book.rating)}</span>
                             ${book.pages ? `<span>📄 ${book.pages} pages</span>` : ''}
-                            ${book.category ? `<span class="category category-${book.category}">${book.category}</span>` : ''}
+                            ${book.series ? `<span class="series">${book.series}</span>` : ''}
                         </div>
-                        ${book.series ? `<p class="series">Series: ${book.series}</p>` : ''}
-                        <div class="book-meta">
-                            ${book.preview ? `<button class="preview-btn" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`')}\`)">Preview</button>` : ''}
-                            ${book.plot ? `<button class="plot-btn" onclick="window.showText('Plot', \`${book.plot.replace(/`/g, '\\`')}\`)">Plot</button>` : ''}
-                        </div>
+                        ${book.preview ? `
+                            <div class="preview-text" onclick="window.showText('Preview', \`${book.preview.replace(/`/g, '\\`')}\`)">
+                                ${book.preview.length > 30 ? book.preview.substring(0, 30) + '...' : book.preview}
+                                <span class="info-icon">i</span>
+                            </div>
+                        ` : ''}
+                        ${book.plot ? `<button class="plot-btn" onclick="window.showText('Plot', \`${book.plot.replace(/`/g, '\\`')}\`)">Plot</button>` : ''}
                         ${book.dateRead || book.firstEdition ? `
                             <p class="book-dates">
                                 ${book.dateRead ? `Read: ${formatDate(book.dateRead)}` : ''}
-                                ${book.dateRead && book.firstEdition ? ' · ' : ''}
+                                ${book.dateRead && book.firstEdition ? '&nbsp;&nbsp;&nbsp;' : ''}
                                 ${book.firstEdition ? `First edition: ${book.firstEdition}` : ''}
                             </p>
                         ` : ''}
