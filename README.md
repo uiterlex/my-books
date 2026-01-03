@@ -1,38 +1,47 @@
 # My Book Collection
 
-A personal book collection website displaying Dutch books I've read.
+A personal book collection website to catalog and display Dutch books I've read.
 
-**Live site:** [books.uiterlex.nl](https://books.uiterlex.nl)
+**Live site:** https://books.uiterlex.nl
+
+## Features
+
+- Public read access for all visitors
+- Google sign-in for owner authentication
+- Add, edit, and delete books when signed in
+- Book cover image upload with automatic resizing (max 300×450px)
+- Filter books by title, author, series, category, rating, and date read
+- Sort books by date read, category, author, rating, and first edition
+- Category badges (thriller, detective, other)
+- Preview text with popup modal
+- Plot summary with popup modal
+- Date read and first edition display
+- Real-time updates via Firestore
 
 ## Tech Stack
 
-- **Frontend:** Single `index.html` file with vanilla JavaScript
-- **Database:** Firebase Firestore (real-time sync)
-- **Storage:** Firebase Storage (book cover images)
-- **Auth:** Firebase Google Authentication
-- **Hosting:** Vercel (auto-deploys from GitHub)
-
-## Firebase Project
-
-- **Project ID:** my-books-4ef15
-- **Console:** [console.firebase.google.com](https://console.firebase.google.com/project/my-books-4ef15)
+- HTML, CSS, JavaScript (single file)
+- Firebase Firestore (database)
+- Firebase Storage (cover images)
+- Firebase Authentication (Google sign-in)
+- Hosted on Vercel
 
 ## Firestore Structure
 
 ```
 books/
-  ├── {documentId}/
-  │   ├── title: string (required)
-  │   ├── author: string (required)
-  │   ├── pages: number
-  │   ├── rating: number (1-5)
-  │   ├── series: string
-  │   ├── category: string ("thriller" | "detective" | "other")
-  │   ├── dateRead: string (free format, e.g. "Jun 2025")
-  │   ├── firstEdition: string ("YYYY")
-  │   ├── preview: string
-  │   ├── plot: string
-  │   └── coverUrl: string (Firebase Storage URL)
+  └── {bookId}/
+      ├── title: string
+      ├── author: string
+      ├── pages: number
+      ├── rating: number (1-5)
+      ├── series: string
+      ├── category: string ("thriller" | "detective" | "other")
+      ├── dateRead: string ("YYYY-MM")
+      ├── firstEdition: string ("YYYY")
+      ├── preview: string
+      ├── plot: string
+      └── coverUrl: string (Firebase Storage URL)
 ```
 
 ## Storage Structure
@@ -41,22 +50,6 @@ books/
 covers/
   └── {bookId}.jpg
 ```
-
-Cover images are automatically resized to max 300×450px before upload.
-
-## Features
-
-- Public read access for all visitors
-- Google sign-in for owner (uiterlex@gmail.com)
-- Add/Edit/Delete books when signed in
-- Book cover image upload with automatic resizing
-- Color-coded category badges (thriller/detective/other)
-- Series display with "Series:" prefix
-- Preview text (first 30 characters with info icon popup)
-- Plot text with popup modal
-- Flexible date format for "Date Read" field
-- Sorted by date read (newest first)
-- Real-time updates via Firestore onSnapshot
 
 ## Security Rules
 
@@ -89,3 +82,34 @@ service firebase.storage {
   }
 }
 ```
+
+## Filter Options
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| Title | Text | Partial match, case-insensitive |
+| Author | Text | Partial match, case-insensitive |
+| Series | Text | Partial match, case-insensitive |
+| Category | Dropdown | Exact match (thriller, detective, other) |
+| Rating | Operator + Value | =, ≥, ≤ with star rating |
+| Date Read | Operator + Month | =, ≥, ≤ with month picker |
+
+## Sort Options
+
+| Sort | Description |
+|------|-------------|
+| Date read | Newest first (default) |
+| Category → Author → First edition | Alphabetical cascade |
+| Author → Series → First edition | Alphabetical cascade |
+| Rating → Author → Series → First edition | Highest rating first |
+
+All sort options have a reverse checkbox to flip the order.
+
+## Setup
+
+1. Clone this repository
+2. Create a Firebase project
+3. Enable Firestore, Storage, and Authentication (Google provider)
+4. Update the Firebase config in `index.html`
+5. Set up security rules as shown above
+6. Deploy to Vercel or any static host
