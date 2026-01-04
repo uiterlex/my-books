@@ -1,30 +1,32 @@
-# My Book Collection
+# My Books read list
 
 A personal book collection website to catalog and display Dutch books I've read.
 
-**Live site:** https://books.uiterlex.nl
+**Live site:** <https://books.uiterlex.nl>
 
 ## Features
 
-- Public read access for all visitors
-- Google sign-in for owner authentication
-- Add, edit, and delete books when signed in
-- Book cover image upload with automatic resizing (max 300×450px)
-- Filter books by title, author, series, category, rating, and date read
-- Sort books by date read, category, author, rating, and first edition
-- Category badges (thriller, detective, other)
-- Preview text with popup modal
-- Plot summary with popup modal
-- Date read and first edition display
-- Real-time updates via Firestore
+* Public read access for all visitors
+* Google sign-in for owner authentication
+* Add, edit, and delete books when signed in
+* Book cover image upload with automatic resizing (max 300×450px)
+* Filter books by title, author, series, category, rating, and date read
+* Sort books by date read, category, author, rating, and first edition
+* Sticky header with filter & sort panel (stays visible while scrolling)
+* Category badges (thriller, detective, other)
+* Preview text with popup modal
+* Plot summary with popup modal
+* Date read and first edition display
+* Real-time updates via Firestore
+* Responsive design with left-aligned book covers on mobile
 
 ## Tech Stack
 
-- HTML, CSS, JavaScript (single file)
-- Firebase Firestore (database)
-- Firebase Storage (cover images)
-- Firebase Authentication (Google sign-in)
-- Hosted on Vercel
+* HTML, CSS, JavaScript (single file)
+* Firebase Firestore (database)
+* Firebase Storage (cover images)
+* Firebase Authentication (Google sign-in)
+* Hosted on Vercel
 
 ## Firestore Structure
 
@@ -55,7 +57,7 @@ covers/
 
 ### Firestore
 
-```javascript
+```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -70,7 +72,7 @@ service cloud.firestore {
 
 ### Storage
 
-```javascript
+```
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
@@ -86,7 +88,7 @@ service firebase.storage {
 ## Filter Options
 
 | Filter | Type | Description |
-|--------|------|-------------|
+| --- | --- | --- |
 | Title | Text | Partial match, case-insensitive |
 | Author | Text | Partial match, case-insensitive |
 | Series | Text | Partial match, case-insensitive |
@@ -97,7 +99,7 @@ service firebase.storage {
 ## Sort Options
 
 | Sort | Description |
-|------|-------------|
+| --- | --- |
 | Date read | Newest first (default) |
 | Category → Author → First edition | Alphabetical cascade |
 | Author → Series → First edition | Alphabetical cascade |
